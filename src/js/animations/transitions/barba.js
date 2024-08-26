@@ -3,6 +3,9 @@
 import barba from "@barba/core";
 import { gsap } from "gsap";
 import { initAll } from "../../utils/initAll"; // Import the centralized initAll
+import { animateHome, animateHomeLeave } from "./homeTransition";
+import { animateAbout, animateAboutLeave } from "./aboutTransition";
+import { animateContact, animateContactLeave } from "./contactTransition";
 
 // Function to initialize Barba.js transitions
 export function initBarba() {
@@ -12,13 +15,69 @@ export function initBarba() {
       {
         sync: true, // Ensures smoother, simultaneous transitions
         enter(data) {
-          // Create a timeline for coordinated transitions
+          // General page transition (as you already defined)
           let tl = gsap.timeline({
-            defaults: { duration: 1, ease: "expo.out" },
+            defaults: {
+              duration: 1.2,
+              ease: "expo.out",
+            },
           });
-          tl.to(data.current.container, { opacity: 0, scale: 0.9 });
-          tl.from(data.next.container, { y: "100vh" }, "<"); // Slide-in effect
+          tl.to(data.current.container, {
+            opacity: 0,
+            scale: 0.9,
+            filter: "blur(4rem)",
+            filter: "invert(1)",
+            mixBlendMode: "exclusion",
+          });
+          tl.from(
+            data.next.container,
+            {
+              y: "100vh",
+              filter: "blur(0.2rem)",
+              scale: 1.05,
+              filter: "invert(0)",
+            },
+            "<"
+          ); // Slide-in effect
           return tl;
+        },
+      },
+    ],
+    views: [
+      {
+        namespace: "home",
+        beforeEnter() {
+          animateHome(); // Home-specific entry animation
+        },
+        beforeLeave() {
+          animateHomeLeave(); // Home-specific exit animation
+        },
+        afterEnter() {
+          initAll(); // Re-initialize after entry animation
+        },
+      },
+      {
+        namespace: "about",
+        beforeEnter() {
+          animateAbout(); // About-specific entry animation
+        },
+        beforeLeave() {
+          animateAboutLeave(); // About-specific exit animation
+        },
+        afterEnter() {
+          initAll(); // Re-initialize after entry animation
+        },
+      },
+      {
+        namespace: "contact",
+        beforeEnter() {
+          animateContact(); // Contact-specific entry animation
+        },
+        beforeLeave() {
+          animateContactLeave(); // Contact-specific exit animation
+        },
+        afterEnter() {
+          initAll(); // Re-initialize after entry animation
         },
       },
     ],
@@ -31,6 +90,7 @@ export function initBarba() {
       left: 0,
       width: "100%",
       height: "auto",
+      minHeight: "100vh",
     });
   });
 

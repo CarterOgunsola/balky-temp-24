@@ -48,12 +48,14 @@ export function initHomeWork() {
       if (defaultText && activeText) {
         gsap.to(defaultText, {
           yPercent: -100,
+          opacity: 0, //new
           duration: 0.5,
           ease: "expo.out",
           overwrite: "auto",
         });
         gsap.to(activeText, {
           yPercent: 0,
+          opacity: 1, //new
           duration: 0.5,
           ease: "expo.out",
           overwrite: "auto",
@@ -82,12 +84,14 @@ export function initHomeWork() {
       if (defaultText && activeText) {
         gsap.to(defaultText, {
           yPercent: 0,
+          opacity: 1, //new
           duration: 0.5,
           ease: "expo.out",
           overwrite: "auto",
         });
         gsap.to(activeText, {
           yPercent: 100,
+          opacity: 0, //new
           duration: 0.5,
           ease: "expo.out",
           overwrite: "auto",
