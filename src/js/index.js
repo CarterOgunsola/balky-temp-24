@@ -1,8 +1,10 @@
 import "../styles/index.css";
-import { initGenAnimations } from "./animations/general";
+import { initAll } from "./utils/initAll";
+import { initTransitions } from "./animations/transitions"; // Import the transitions
 
 document.addEventListener("DOMContentLoaded", () => {
-  initGenAnimations();
+  initTransitions(); // Initialize Barba.js transitions
+  initAll();
 });
 
 console.log("Hello, Balky!");
